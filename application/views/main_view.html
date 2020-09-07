@@ -1,0 +1,93 @@
+<div class="my-3 p-3 bg-white rounded shadow-sm">
+    <form id="newTask">
+        <h6 class="mb-0">Создать новую задачу</h6>
+        <hr class="mb-4">
+        <div class="form-group input-group-sm">
+            <h6 class="mb-0 text-muted "><label for="emailTask">Введите email</label> </h6>
+            <input type="email" class="form-control" id="emailTask" name="email"  >
+        </div>
+        <div class="form-group input-group-sm" >
+            <h6 class="mb-0 text-muted "><label for="nameTask">Имя создателя задачи</label></h6>
+            <input type="name" class="form-control" id="nameTask" name="name"  >
+        </div>
+
+        <div class="form-group input-group-sm">
+            <h6 class="mb-0 text-muted "><label for="textTask">Текст задачи</label></h6>
+            <textarea class="form-control" id="textTask" rows="3" name="text" ></textarea>
+        </div>
+         <button type="button" class="btn btn-primary btn-sm col-auto" id="createNewTask">Отправить</button>
+    </form>
+</div>
+
+
+<div class="my-3 p-3 bg-white rounded shadow-sm">
+    <div class="border-bottom border-gray pb-2 mb-0 d-flex justify-content-between align-items-center">
+        <h6 class="mb-0">Список задач</h6>
+<div class="row">
+    <div class="dropdown">
+            <button class=" btn btn-link btn-sm  dropdown-toggle"  href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Сортировка по параметру: <span id="parametrSort"></span>
+            </button>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <button class="dropdown-item sort active" value="id"> По умолчанию</button>
+                <button class="dropdown-item sort" value="email" >Email</button>
+                <button class="dropdown-item sort" value="name">Имя</button>
+                <button class="dropdown-item sort" value="status">Статус</button>
+            </div>
+    </div>
+    <div class="dropdown">
+            <button class=" btn btn-link btn-sm  dropdown-toggle"  href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Порядок сортировки:<span id="orderSort"></span>
+            </button>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                <button class="dropdown-item  order " value="ASC">Возрастанию</button>
+                <button class="dropdown-item order active" value="DESC">Убыванию</button>
+            </div>
+        </div>
+</div>
+    </div>
+<div id="listTask">
+    {TaskList}
+</div>
+    <small class="d-block text-right mt-3">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-end">
+
+                {TaskPages}
+
+            </ul>
+        </nav>
+    </small>
+</div>
+
+
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Редактирование задачи</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <form id="editTaskForm">
+            <div class="modal-body">
+                    <div class="form-group">
+                        <label for="status" class="col-form-label">Завершено</label>
+                        <input type="checkbox"  aria-label="Checkbox for following text input" id="status" value="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">Текст задачи:</label>
+                        <textarea class="form-control" id="message-text"></textarea>
+                    </div>
+                    <input type="hidden" id="taskId" name="id" value="0">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                <button type="button" class="btn btn-primary" id="editTask">Отправить</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+<script src="/js/my_js.js"></script>

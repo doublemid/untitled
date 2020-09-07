@@ -1,0 +1,18 @@
+<div class="media text-muted pt-3 ">
+    <div class="media-body mb-0 pb-3 small lh-125 border-bottom border-gray">
+        <div class="align-content-stretch">
+            <div class="d-flex justify-content-between w-100">
+                <div>
+                    <strong class='text-gray-dark' id='userName{{name}}'>{name}</strong>
+                    <strong class="d-block mt-0 mb-2 font-weight-normal" id="userEmail{{id}}"><strong class='text-gray-dark'>Email:</strong> {email}</span>
+                </div>
+                <a class="modallink" id="{id} "  {hidden}>Редактировать</a>
+            </div>
+            <div class="textcontent">
+                <strong class='text-gray-dark'>Текст задачи:</strong>
+                <p id="textTask{id}">{text}</p>
+                <strong >Статус: <span class="badge  badge-primary" id="statusTask{id}" data="{status}">{statustext}</span></strong>
+            </div>
+        </div>
+    </div>
+</div>
