@@ -1,4 +1,23 @@
 <?php
+/*class Model {
+    public $pdo;
+    public $data;
+    function __construct(){
+        $host = '127.0.0.1';
+        $db   = 'tasks';
+        $user = 'root';
+        $pass = '';
+        $charset = 'utf8';
+
+        $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
+        $opt = [
+            PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+            PDO::ATTR_EMULATE_PREPARES   => false,
+        ];
+        $this->pdo = new PDO($dsn, $user, $pass, $opt);
+    }
+}*/
 
 class Model_Tasks extends Model{
     protected $num=3;
@@ -57,19 +76,32 @@ class Model_Tasks extends Model{
     }
 
     public function editTask($data){
-        $sql = "UPDATE  listing_task SET status=:status, text=:text WHERE id=:id";
         $id=$data['id'];
-        $data['status'];
-            try{
+        $edittxt =$this->pdo->prepare('SELECT text FROM listing_task WHERE id=:id');
+        $edittxt->execute(array('id'=>$id));
+        $result = $edittxt->fetch();
+        $sql = "UPDATE  listing_task SET status=:status, text=:text  WHERE id=:id";
+        if($data['text']!=$result['text']) {
+            $data['edit'] = '1';
+            $sql = "UPDATE  listing_task SET status=:status, text=:text, edit=:edit WHERE id=:id";
+        }
+        try{
                 $stmt = $this->pdo->prepare($sql);
                 $stmt->execute($data);
-                $result =$this->pdo->prepare('SELECT * FROM listing_task WHERE id=:id');
-                $result->execute(array('id'=>$id));
-                $name = $result->fetchAll();
-                return $name;
+                $response =$this->pdo->prepare('SELECT * FROM listing_task WHERE id=:id');
+                $response->execute(array('id'=>$id));
+                $result=$response->fetchAll();
             }catch(PDOException $e) {
                 echo $e->getMessage();
                 exit;
             }
-            }
+        return $result;
+    }
 }
+/*$data['id'] = 3;
+$data['status'] = 0;
+$data['text'] ='fsdfsdf';
+print_r( $data);
+$fffd = new Model_Tasks();
+$result = $fffd->editTask($data);
+print_r($result);*/

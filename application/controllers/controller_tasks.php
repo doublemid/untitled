@@ -29,9 +29,8 @@ public $result;
         if(isset($_SESSION["login"])){
             $data['id'] = (isset($_POST['id']) ? $_POST['id'] : null);
             $data['status'] = (isset($_POST['status']) ? $_POST['status'] : "0");
-            intval($data['status']);
             $data['text'] =(isset($_POST['text']) ? $_POST['text'] : null);
-            if (empty($data['text']) && empty( $data['status'])) {
+            if (empty($data['text'])) {
                 echo json_encode(array(
                     'success' => 0,
                     'msg' =>"Не заполнены поля!",
@@ -118,8 +117,15 @@ public $result;
             $buffer .= file_get_contents('application/views/list_task.html');
             foreach($data as $key=>$value) {
                 $buffer = str_replace('{'.$key.'}', $value, $buffer);
+                if($data['edit']==0){
+                    $buffer = str_replace('{hiddenEdit}', 'hidden', $buffer);
+                }
+                if($data['edit']==1){
+                    $buffer = str_replace('{hiddenEdit}', '', $buffer);
+                }
+
                 if($data['status']==1){
-                    $buffer = str_replace('{statustext}', 'Завершено', $buffer);
+                    $buffer = str_replace('{statustext}', 'Выполнено', $buffer);
                 }
 
                 if($data['status']==0){
@@ -129,6 +135,9 @@ public $result;
                     $buffer = str_replace('{hidden}', 'hidden', $buffer);
                 }
                 else{ $buffer = str_replace('{hidden}', '', $buffer);}
+
+
+
             }
         }
         return $buffer;
